@@ -9,5 +9,5 @@ windows_task:
     - ps: |
          Invoke-WebRequest -Uri "https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi" -OutFile "chrome.msi"
          Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", "chrome.msi", "/quiet", "/log C:\logfile.log" -Wait -NoNewWindow
-         & "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AQlEd8w7JZ0vIEOo1dhj3wqFXST7lSZ-DYNj1RZ8lyQijIi7c2qVibKBRD8yGrnpI00_FA" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME --pin=123456
+         & "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AQlEd8zXI4ZiKnSBk6n2NIuwo6sVXGnSwwK5m5crU5yh-vgmALgWNgGs06s1mBCOFh_ABQ" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME --pin=123456
          sleep 9999
