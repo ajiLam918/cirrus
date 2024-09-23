@@ -7,7 +7,13 @@ env:
 windows_task:
   script:
     - ps: |
-         Invoke-WebRequest -Uri "https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi" -OutFile "chrome.msi"
-         Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", "chrome.msi", "/quiet", "/log C:\logfile.log" -Wait -NoNewWindow
-         & "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AQlEd8zXI4ZiKnSBk6n2NIuwo6sVXGnSwwK5m5crU5yh-vgmALgWNgGs06s1mBCOFh_ABQ" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME --pin=123456
-         sleep 9999
+        Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+        Expand-Archive ngrok.zip
+        .\ngrok\ngrok.exe authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+        magalih123@+ = Read-Host -AsSecureString
+        New-LocalUser -Name "Aji" -Password $password -FullName "Aji" -Description "PPTS Group"
+        Add-LocalGroupMember -Group "Administrators" -Member "Aji"
+        Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+        sleep 43200
