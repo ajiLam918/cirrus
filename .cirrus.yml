@@ -10,4 +10,3 @@ env:
 task:
   script: |
        sudo apt update
-       sleep infinity
