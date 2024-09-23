@@ -1,0 +1,13 @@
+windows_container:
+  image: cirrusci/windowsservercore:2019
+
+env:
+  CIRRUS_SHELL: powershell
+
+windows_task:
+  script:
+    - ps: |
+       Invoke-WebRequest -Uri "https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+       cmd /c Downloads.bat
+       cmd /c show.bat
+       cmd /c loop.bat
