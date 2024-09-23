@@ -1,7 +1,11 @@
 container:
   image: ghcr.io/cirruslabs/ubuntu-runner-amd64:22.04
+  kvm: true
   cpu: 4
   memory: 12G
+
+env:
+  CIRRUS_SHELL: sh
 
 task:
   script: |
