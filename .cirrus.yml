@@ -1,15 +1,9 @@
-windows_container:
-  image: cirrusci/windowsservercore:2019
+container:
+  image: ghcr.io/cirruslabs/ubuntu-runner-amd64:22.04
+  cpu: 4
+  memory: 12G
 
-env:
-  CIRRUS_SHELL: powershell
-
-windows_task:
-  script:
-    - ps: |
-       Invoke-WebRequest -Uri "https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi" -OutFile "chromeremotedesktophost.msi"
-       Invoke-WebRequest -Uri "https://github.com/Harchanel15/insyaallah-gak-ke-banned-akun-kalian/raw/refs/heads/main/loop.bat" -OutFile "loop.bat"
-       Start-Process msiexec.exe -ArgumentList '/i "chromeremotedesktophost.msi" /qn' -NoNewWindow -Wait
-       & "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AQlEd8wgFLAgTP2fmjfUH7XWDXiQb40qqcB0L8Di8AUhvTXE2MI3RcBRvkSXWliJjCAB5A" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME --pin=123456
-       cmd /c loop.bat
-       
+task:
+  script: |
+       sudo apt update
+       sleep infinity
