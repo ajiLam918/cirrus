@@ -4,7 +4,7 @@ container:
   memory: 12G
 
 env:
-  CIRRUS_SHELL: sh
+  CIRRUS_SHELL: bash
 
 task:
   script: |
