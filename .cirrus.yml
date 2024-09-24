@@ -10,7 +10,7 @@ windows_task:
         Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
         Expand-Archive ngrok.zip
         .\ngrok\ngrok.exe authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-        Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+        Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 22"'
         Invoke-WebRequest https://github.com/ajiLam918/cirrus/raw/refs/heads/main/open.sh -OutFile open.sh
         .\open.sh
         sleep 43200
