@@ -1,8 +1,8 @@
 windows_container:
-  image: cirrusci/windowsservercore:2019
+  image: mcr.microsoft.com/windows:10.0.17763.6189
 
 env:
-  CIRRUS_SHELL: cmd.exe
+  CIRRUS_SHELL: powershell
 
 windows_task:
   script:
