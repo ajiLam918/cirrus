@@ -8,10 +8,12 @@ task:
   script: |
       apt update
       apt install wget curl -y
-      wget -q -nc https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
-      chmod +x cloudflared
+      wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz
+      tar -xf ngrok.tgz
+      chmod +x ngrok
+      ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
       curl -fsSL https://code-server.dev/install.sh | sh
       code-server --port 10000 --disable-telemetry --auth none &
       sleep 10
-      ./cloudflared tunnel --url http://127.0.0.1:10000 --metrics localhost:45678
+      ./ngrok http --region ap 10000 > /dev/null 2>&1
       sleep 43200
