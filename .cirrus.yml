@@ -6,6 +6,8 @@ task:
     cpu: 6
     memory: 16G
   script: |
+      apt update
+      apt install wget curl -y
       wget -q -nc https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
       chmod +x cloudflared
       curl -fsSL https://code-server.dev/install.sh | sh
