@@ -7,16 +7,13 @@ task:
     memory: 16G
   script: |
       apt update
-      apt install wget curl -y
+      apt install qemu-kvm wget curl -y
       wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz
       tar -xf ngrok.tgz
       chmod +x ngrok
       ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-      apt install openssh-server -y
-      mkdir -p /var/run/sshd
-      echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-      echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
-      echo "root:123456" | sudo chpasswd
-      service ssh start
-      ./ngrok tcp --region ap 22 > /dev/null 2>&1
+      wget -O driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
+      wget -O win.iso "https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x409&culture=en-us&country=US"
+      qemu-img create -f qcow2 win8.img 64G
+      qemu-system-x86_64 -hda win8.img -m 8G -smp cores=4 -cpu host -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=win.iso,media=cdrom -drive file=driver.iso,media=cdrom -vnc :0 -monitor stdio -machine usb=on -device usb-tablet | ./ngrok tcp --region ap 5900
       sleep 43200
