@@ -12,7 +12,7 @@ task:
       tar -xf ngrok.tgz
       chmod +x ngrok
       ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-      apt install openssh-server > /dev/null 2>&1
+      apt install openssh-server -y
       mkdir -p /var/run/sshd
       echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
       echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
