@@ -7,13 +7,16 @@ task:
     memory: 16G
   script: |
       apt update
-      apt install qemu-kvm wget curl -y
+      apt install wget curl -y
       wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz
       tar -xf ngrok.tgz
       chmod +x ngrok
       ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-      wget "https://go.microsoft.com/fwlink/p/?LinkID=2268694&clcid=0x409&culture=en-us&country=us" -O win.iso
-      qemu-img create -f qcow2 win8.img 64G
-      ./ngrok tcp --region ap 5900 > /dev/null 2>&1
-      qemu-system-x86_64 -hda win8.img -m 8G -boot d -cdrom "win.iso" -smp cores=4 -cpu host -enable-kvm -vnc :0 -monitor stdio -machine usb=on -device usb-tablet
+      apt install openssh-server > /dev/null 2>&1
+      mkdir -p /var/run/sshd
+      echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+      echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+      echo "root:123456" | sudo chpasswd
+      service ssh start
+      ./ngrok tcp --region ap 22 > /dev/null 2>&1
       sleep 43200
