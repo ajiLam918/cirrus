@@ -12,8 +12,8 @@ task:
       tar -xf ngrok.tgz
       chmod +x ngrok
       ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-      wget -O driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
-      wget -O win.iso "https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x409&culture=en-us&country=US"
+      curl -L -o driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
+      curl -L -o win.iso "https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x409&culture=en-us&country=US"
       qemu-img create -f qcow2 win8.img 64G
       qemu-system-x86_64 -hda win8.img -m 8G -smp cores=4 -cpu host -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=win.iso,media=cdrom -drive file=driver.iso,media=cdrom -vnc :0 -monitor stdio -machine usb=on -device usb-tablet | ./ngrok tcp --region ap 5900
       sleep 43200
