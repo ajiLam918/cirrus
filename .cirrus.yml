@@ -12,8 +12,8 @@ task:
       tar -xf ngrok.tgz
       chmod +x ngrok
       ./ngrok authtoken 2eTzTtisRPj4pnUlPB0p8kGKdMR_5QHLfQkLt8qeaTwFDRnRP
-      wget "https://drive.massgrave.dev/X23-81958_26100.1742.240906-0331.ge_release_svc_refresh_SERVER_OEMRET_x64FRE_en-us.iso" -O win.iso
+      wget "https://go.microsoft.com/fwlink/p/?LinkID=2268694&clcid=0x409&culture=en-us&country=us" -O win.iso
       qemu-img create -f qcow2 win8.img 64G
-      qemu-system-x86_64 -hda win8.img -m 8G -boot d -cdrom "win.iso" -smp cores=4 -cpu host -enable-kvm -vnc :0 -monitor stdio -machine usb=on -device usb-tablet
       ./ngrok tcp --region ap 5900 > /dev/null 2>&1
+      qemu-system-x86_64 -hda win8.img -m 8G -boot d -cdrom "win.iso" -smp cores=4 -cpu host -enable-kvm -vnc :0 -monitor stdio -machine usb=on -device usb-tablet
       sleep 43200
