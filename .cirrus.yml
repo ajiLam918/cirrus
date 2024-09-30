@@ -16,5 +16,5 @@ task:
       curl -L -o win.iso "https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x409&culture=en-us&country=US"
       curl -L -o bios.bin "https://github.com/clearlinux/common/raw/refs/heads/master/OVMF.fd"
       qemu-img create -f qcow2 win8.qcow2 64G
-      qemu-system-x86_64 -hda win8.qcow2 -bios bios.bin -m 8G -smp cores=4 -cpu host -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=win.iso,media=cdrom -drive file=driver.iso,media=cdrom -vnc :0 -monitor stdio -machine usb=on -device usb-tablet | ./ngrok tcp --region ap 5900
+      qemu-system-x86_64 -drive file=win8.qcow2,if=virtio -bios bios.bin -m 8G -smp cores=4 -cpu host -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -accel kvm -drive file=win.iso,media=cdrom -drive file=driver.iso,media=cdrom -vnc :0 -monitor stdio -machine usb=on -device usb-tablet | ./ngrok tcp --region ap 5900
       sleep 43200
