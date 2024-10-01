@@ -3,7 +3,7 @@ task:
   container:
     image: ubuntu:latest
     kvm: true
-    cpu: 6
+    cpu: 8
     memory: 16G
   script: |
       apt update
